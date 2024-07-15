@@ -1,3 +1,5 @@
 Odin Project Mastermind
 
-This is a Ruby implementation of the lassic game Mastermind.
+This is a Ruby implementation of the classic game Mastermind.
+
+The game is completed but the computer will only guess randomly.
