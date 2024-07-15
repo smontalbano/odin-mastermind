@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'compare'
+require_relative 'computer'
 require_relative 'display'
 require 'colorize'
 
@@ -21,17 +22,19 @@ class Mastermind
     code_maker? ? set_code : generate_code
   end
 
-  def game_loop
+  def game_loop # rubocop:disable Metrics/MethodLength
     until winner?
-      if @code_master == 'computer'
-        @guess = input_colors
-        Display.update_board(parse_guess, @guess, @game_round)
-        @game_round += 1
-      else
-        puts @secret_code
-      end
+      @guess = if @code_master == 'computer'
+                 input_colors
+               else
+                 sleep 5
+                 computer = Computer.new
+                 computer.make_guess
+               end
+      Display.update_board(parse_guess, @guess, @game_round)
+      @game_round += 1
     end
-    puts "#{@winner} wins!"
+    puts "#{@winner} win!"
   end
 
   private
@@ -48,10 +51,11 @@ class Mastermind
     end
   end
 
-  def code_maker?
+  def code_maker? # rubocop:disable Metrics/MethodLength
     puts "Who should be the code maker? (Type 'me' or 'computer')"
     @code_master = gets.chomp.downcase
     if @code_master == 'me'
+      @code_master = 'You'
       true
     elsif @code_master == 'computer'
       false

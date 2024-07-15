@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
+require_relative 'display'
+
 class Computer
+  VALID_GUESS = %w[R O Y G B P].freeze
+  CODE_SIZE = 4
+
   def initialize
-    @prev_guess = []
-    @guess = []
-    @feedback = []
-    @turn = 1
+    @guess = ''
   end
 
-  def generate_guess
-    if @turn == 1
-      @guess = 'RROO'
-    else
-
-    end
+  def make_guess
+    CODE_SIZE.times { @guess += "#{VALID_GUESS[rand(6)]} " }
+    @guess.strip!
   end
 end

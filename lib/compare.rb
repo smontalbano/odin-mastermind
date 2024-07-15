@@ -12,7 +12,6 @@ module Compare
       c_pos += 1 if @guess[i] == @secret_code[i]
       i += 2
     end
-    puts c_pos
     c_pos
   end
 
@@ -23,7 +22,6 @@ module Compare
       c_cont += 1 if @secret_code.include?(@guess[i])
       i += 2
     end
-    puts c_cont
     c_cont
   end
 end
